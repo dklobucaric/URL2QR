@@ -18,7 +18,7 @@ Izrađena je za učenje, lokalni hosting (npr. XAMPP / Proxmox / LAN), i jednost
 
 ## 🖼️ Izgled aplikacije
 
-![URL2QR Screenshot](docs/screenshot.png)
+![URL2QR Screenshot](docs/screenshot.jpg)
 
 
 
