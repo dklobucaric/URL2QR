@@ -20,7 +20,7 @@ Izrađena je za učenje, lokalni hosting (npr. XAMPP / Proxmox / LAN), i jednost
 
 ![URL2QR Screenshot](docs/screenshot.png)
 
-*(Preporuka: dodaj sliku `docs/screenshot.png` – možeš snimiti svoj ekran iz browsera i spremiti pod tim imenom)*
+
 
 ---
 
@@ -36,16 +36,10 @@ Izrađena je za učenje, lokalni hosting (npr. XAMPP / Proxmox / LAN), i jednost
 3. Otvori u pregledniku:
 👉 http://localhost/URL2QR/public/
 
-### PHP ugrađeni server (ako nemaš XAMPP)
-
-cd public
-php -S localhost:8080
-
-Zatim otvori:
-👉 http://localhost:8080
 
 ### Struktura projekta
 
+```text
 URL2QR/
 │
 ├── public/
