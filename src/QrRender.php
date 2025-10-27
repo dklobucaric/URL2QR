@@ -5,45 +5,42 @@ class QrRender
 
     public static function outputPng(array $matrix, string $colorHex, int $sizePx): void
     {
-        // validacija boje
         if (!preg_match('/^[0-9a-fA-F]{6}$/', $colorHex)) {
             $colorHex = '000000';
         }
 
-        // dimenzije matrice (broj modula)
-        $modules = count($matrix); // kvadratno: width = height = modules
+        $modules = count($matrix);
 
         if ($modules === 0) {
-            // fallback: prazna slicica 1x1
             self::outputFallback();
             return;
         }
 
-        // koliki piksel po modulu da stignemo otprilike sizePx
         $pixelPerModule = floor($sizePx / $modules);
         if ($pixelPerModule < 1) $pixelPerModule = 1;
 
         $imgSize = $modules * $pixelPerModule;
 
-        // napravi GD sliku
         $img = imagecreatetruecolor($imgSize, $imgSize);
 
-        // white bg
+        // background bijelo
         $white = imagecolorallocate($img, 255, 255, 255);
 
-        // naša boja modula
+        // boja QR-a iz color pickera
         $r = hexdec(substr($colorHex, 0, 2));
         $g = hexdec(substr($colorHex, 2, 2));
         $b = hexdec(substr($colorHex, 4, 2));
         $dotColor = imagecolorallocate($img, $r, $g, $b);
 
-        // fill background
+        // fill bijelom
         imagefill($img, 0, 0, $white);
 
-        // nacrtaj kvadratiće
+        // crtanje: 1 znači popuni kvadratić
         for ($y = 0; $y < $modules; $y++) {
-            for ($x = 0; $x < $modules; $x++) {
-                if ($matrix[$y][$x] === 1) {
+            $row = $matrix[$y];
+            $cols = count($row);
+            for ($x = 0; $x < $cols; $x++) {
+                if ($row[$x] === 1) {
                     imagefilledrectangle(
                         $img,
                         $x * $pixelPerModule,
@@ -56,7 +53,6 @@ class QrRender
             }
         }
 
-        // header i output
         header('Content-Type: image/png');
         header('Cache-Control: no-cache, no-store, must-revalidate');
         imagepng($img);
